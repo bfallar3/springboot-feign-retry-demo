@@ -1,0 +1,11 @@
+logging:
+  level:
+    com.benjsoft.feignretryableexample: DEBUG
+
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: BASIC
+        errorDecoder: com.benjsoft.feignretryableexample.ErrorDecoder
+        #retryer: com.benjsoft.feignretryableexample.FeignRetryer
