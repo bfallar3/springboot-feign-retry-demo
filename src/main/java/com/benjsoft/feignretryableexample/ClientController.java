@@ -15,7 +15,7 @@ public class ClientController {
     private MockFeign mockFeign;
 
     // sample request: http://localhost:8080/client/getAll
-    @GetMapping(value = "/getAll", produces = "text/html")
+    @GetMapping(value = "/getAll", produces = "application/json")
     public List<Object> getObjects() {
         return mockFeign.getObjects();
     }
