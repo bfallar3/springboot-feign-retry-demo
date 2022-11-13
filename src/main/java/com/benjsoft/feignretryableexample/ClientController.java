@@ -1,7 +1,9 @@
 package com.benjsoft.feignretryableexample;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,17 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Slf4j
 @RestController
 @RequestMapping("client")
 public class ClientController {
 
+    private static Logger log = LoggerFactory.getLogger(ClientController.class);
+
     @Autowired
     private MockFeign mockFeign;
 
-    // sample request: http://localhost:8080/client/getAll
+    // sample request: http://localhost:8081/client/getAll
     @GetMapping(value = "/getAll", produces = "application/json")
-    public List<Object> getObjects() {
+    public ResponseEntity<NameModel> getObjects() {
         return mockFeign.getObjects();
     }
 
@@ -39,6 +42,7 @@ public class ClientController {
     @GetMapping("/greet/{country}/{name}")
     public String sayName(@PathVariable String country, @PathVariable String name)
     {
+        log.info("Hello {} from {}", name, country);
         return "Hello " + name + " from " + country;
     }
 }
